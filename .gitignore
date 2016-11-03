@@ -1,0 +1,6 @@
+.direnv/
+__pycache__/
+.envrc
+media/
+db.sqlite3
+*.pyc
