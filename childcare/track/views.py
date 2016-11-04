@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from track.models import Profile, Child
 from django.http import HttpResponseRedirect, HttpResponse
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from random import choice
 from string import digits
 
@@ -35,7 +35,7 @@ class IndexView(TemplateView):
 class Start_View(TemplateView):
     template_name = "start.html"
     model = Child
-    
+
     def get(self, request):
         pin = request.GET["pin"]
         child = Child.objects.get(pin=pin)
@@ -58,3 +58,18 @@ class ChildCreateView(CreateView):
 class ChildDetailView(DetailView):
     model = Child
     success_url = "/"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["child"] = Child.objects.get(id=self.kwargs['pk'])
+        return context
+
+
+class StaffListView(ListView):
+    model = Child
+    success_url = reverse_lazy("index_view")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["child"] = Child.objects.all()
+        return context

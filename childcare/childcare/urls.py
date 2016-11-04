@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from track.views import IndexView, Start_View, UserCreateView, ChildCreateView, ChildDetailView
+from track.views import IndexView, Start_View, UserCreateView, ChildCreateView, ChildDetailView,\
+                        StaffListView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -23,5 +24,6 @@ urlpatterns = [
     url(r'^start/$', Start_View.as_view(), name="start_view"),
     url(r'^create_user/$', UserCreateView.as_view(), name="user_create_view"),
     url(r'^create_child/$', ChildCreateView.as_view(), name="child_create_view"),
+    url(r'^staff/$', StaffListView.as_view(), name="staff_list_view"),
     url(r'^detail/(?P<pk>\d+)/$', ChildDetailView.as_view(), name="child_detail_view")
 ]

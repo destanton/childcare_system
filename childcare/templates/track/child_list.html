@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<h1>Child Detail</h1>
+{% for child in child %}
 
+  {{ child.first_name }}
+  {{ child.pin }}
+{% endfor %}
 {% endblock %}

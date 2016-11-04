@@ -5,7 +5,9 @@
     <title>KidTrack</title>
   </head>
   <body>
-    <h1>hello world</h1>
+
+    <a href="{% url 'child_create_view' %}">Create Child</a>
+    <a href="{% url 'user_create_view' %}">New User</a>
 
     {% block content %}
 
