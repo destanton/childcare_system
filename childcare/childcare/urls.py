@@ -20,6 +20,7 @@ from track.views import IndexView, Start_View, UserCreateView, ChildCreateView, 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^', include('django.contrib.auth.urls')),
     url(r'^$', IndexView.as_view(), name="index_view"),
     url(r'^start/$', Start_View.as_view(), name="start_view"),
     url(r'^create_user/$', UserCreateView.as_view(), name="user_create_view"),

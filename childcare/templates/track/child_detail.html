@@ -8,7 +8,9 @@
     parent: {{ child.parent}}<br>
     {{ child.first_name }}<br>
     {{ child.last_name}}<br>
-    {{ child.pin }}
-  
+    {{ child.pin }}<br>
 
+    {% for item in object.onsite %}
+      Onsite: {{ item.on_premise }}
+    {% endfor %}
 {% endblock %}

@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Child Detail</h1>
-{% for child in child %}
+  {% if request.user.is_staff %}
+  <h1>Child Detail</h1>
+    {% for child in child %}
+      {{ child.first_name }}
+      {{ child.pin }}
+    {% endfor %}
 
-  {{ child.first_name }}
-  {{ child.pin }}
-{% endfor %}
+  {% else %}
+    You can't be here!
+  {% endif %}
 {% endblock %}

@@ -5,10 +5,19 @@
     <title>KidTrack</title>
   </head>
   <body>
+    {% if not request.user.is_authenticated %}
+    <a href="{% url 'login' %}">Login</a>
+    {% else %}
+    <a href="{% url 'logout' %}?next={% url 'index_view' %}">Logout</a>
+    {% endif %}
 
+    {% if request.user.is_staff %}
     <a href="{% url 'child_create_view' %}">Create Child</a>
     <a href="{% url 'user_create_view' %}">New User</a>
-
+    <a href="{% url 'index_view' %}">Home</a>
+    {% else %}
+    <a href="{% url 'index_view' %}">Home</a>
+    {% endif %}
     {% block content %}
 
     {% endblock %}

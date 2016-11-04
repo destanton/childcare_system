@@ -23,6 +23,10 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+    @property
+    def is_staff(self):
+        return self.access_level == 's'
+
 
 class Child(models.Model):
     parent = models.ForeignKey('auth.User')
@@ -32,6 +36,10 @@ class Child(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+    @property
+    def onsite(self):
+        return Time.objects.filter(child=self)
 
 
 class Time(models.Model):
