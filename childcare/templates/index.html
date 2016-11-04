@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Find Child</h1>
+  <form class="" action="{% url 'start_view' %}" method="get">
+    {% csrf_token %}
+    <input type="text" name="pin" placeholder="Enter ID">
+    <input type="submit" value="Find Child">
+  </form>
+
+
+{% endblock %}

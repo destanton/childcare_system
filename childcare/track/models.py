@@ -28,10 +28,14 @@ class Child(models.Model):
     parent = models.ForeignKey('auth.User')
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=100)
-    check_in = models.DateTimeField(auto_now=True)
-    check_out = models.DateTimeField(auto_now=True)
-    on_premise = models.BooleanField(default=False)
     pin = models.CharField(unique=True, max_length=4)
 
     def __str__(self):
-        return self.first_name
+        return str(self.id)
+
+
+class Time(models.Model):
+    child = models.ForeignKey(Child)
+    check_in = models.DateTimeField(auto_now_add=True)
+    check_out = models.DateTimeField(auto_now_add=True)
+    on_premise = models.BooleanField(default=False)
