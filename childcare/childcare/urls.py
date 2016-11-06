@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^create_user/$', UserCreateView.as_view(), name="user_create_view"),
     url(r'^create_child/$', ChildCreateView.as_view(), name="child_create_view"),
     url(r'^staff/$', StaffListView.as_view(), name="staff_list_view"),
-    url(r'^/accounts/profile/$', ProfileListView.as_view(), name="profile_list_view"),
+    url(r'^accounts/profile/$', ProfileListView.as_view(), name="profile_list_view"),
     url(r'^checkin/(?P<pk>\d+)/$', CheckinCreateView.as_view(), name="checkin_create_view"),
     url(r'^checkin_update/(?P<pk>\d+)/$', CheckinUpdateView.as_view(), name="checkin_update_view")
 ]
