@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView, TemplateView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from track.models import Profile, Child
+from track.models import Profile, Child, Time
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse, reverse_lazy
 from random import choice
 from string import digits
+from datetime import datetime
 
 
 class UserCreateView(CreateView):
@@ -34,12 +35,17 @@ class IndexView(TemplateView):
 
 class Start_View(TemplateView):
     template_name = "start.html"
-    model = Child
+    # model = Child
 
     def get(self, request):
         pin = request.GET["pin"]
         child = Child.objects.get(pin=pin)
-        return HttpResponseRedirect(reverse("child_detail_view", args=(child.id,)))
+        check = Time.objects.filter(child=child).first()
+        if check:
+            if not check.on_premise:
+                return HttpResponseRedirect(reverse("checkin_create_view", args=(child.id,)))
+            return HttpResponseRedirect(reverse("checkin_update_view", args=(check.id,)))
+        return HttpResponseRedirect(reverse("checkin_create_view", args=(child.id,)))
 
 
 class ChildCreateView(CreateView):
@@ -55,14 +61,30 @@ class ChildCreateView(CreateView):
         return super().form_valid(form)
 
 
-class ChildDetailView(DetailView):
-    model = Child
+class CheckinCreateView(CreateView):
+    model = Time
     success_url = "/"
+    fields = ("on_premise", )
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["child"] = Child.objects.get(id=self.kwargs['pk'])
-        return context
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        instance.child = Child.objects.get(id=self.kwargs['pk'])
+        if instance.on_premise:
+            return super().form_valid(form)
+        return super().form_invalid(form)
+
+
+class CheckinUpdateView(UpdateView):
+    model = Time
+    success_url = "/"
+    fields = ("on_premise", )
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        if not instance.on_premise:
+            instance.check_out = datetime.now()
+            return super().form_valid(form)
+        return super().form_invalid(form)
 
 
 class StaffListView(ListView):
@@ -73,3 +95,13 @@ class StaffListView(ListView):
         context = super().get_context_data(**kwargs)
         context["child"] = Child.objects.all()
         return context
+
+
+class ProfileListView(ListView):
+    model = Profile
+    success_url = reverse_lazy("index_view")
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context["child"] = Child.objects.filter(id=self.kwargs['pk'])
+    #     return context

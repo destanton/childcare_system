@@ -45,5 +45,8 @@ class Child(models.Model):
 class Time(models.Model):
     child = models.ForeignKey(Child)
     check_in = models.DateTimeField(auto_now_add=True)
-    check_out = models.DateTimeField(auto_now_add=True)
+    check_out = models.DateTimeField(auto_now=False, null=True)
     on_premise = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ('-id',)
