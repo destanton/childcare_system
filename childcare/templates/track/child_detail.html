@@ -1,15 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<div class="ui container">
   <h1>Child Information</h1>
-
-  {% for child in child %}
-    parent: {{ child.parent}}<br>
-    {{ child.first_name }}<br>
-    {{ child.last_name}}<br>
-    {{ child.pin }}<br>
-{% endfor %}
-  
+    {% for child in child %}
+      parent: {{ child.parent}}<br>
+      {{ child.first_name }}<br>
+      {{ child.last_name}}<br>
+      {{ child.pin }}<br>
+    {% endfor %}
+  </div>
 
 {% endblock %}

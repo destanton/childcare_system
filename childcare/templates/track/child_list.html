@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="ui container">
+
+
   {% if request.user.is_staff %}
   <h1>Child Detail</h1>
     {% for child in child %}
@@ -11,4 +14,5 @@
   {% else %}
     You can't be here!
   {% endif %}
+</div>  
 {% endblock %}

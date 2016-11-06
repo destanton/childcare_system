@@ -1,12 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Find Child</h1>
-  <form class="" action="{% url 'start_view' %}" method="get">
-    {% csrf_token %}
-    <input type="text" name="pin" placeholder="Enter ID">
-    <input type="submit" value="Find Child">
-  </form>
 
+<div class="ui container">
+  <div class="ui two column centered grid">
+    <div class="column">
+      <div class="ui center aligned basic segment">
+      <h1 align="center">Lookup Child by ID</h1>
+        <div class="ui form">
+          <form class="" action="{% url 'start_view' %}" method="get">
+          {% csrf_token %}
+          <input type="text" name="pin" placeholder="Enter Child ID">
+          <input class="fluid ui blue ui toggle button" type="submit" value="Find Child">
+          </form>
+        </div>
+        <div class="ui horizontal divider">
+          Or
+        </div>
+          <a class=" ui teal labeled add icon button" href="{% url 'profile_list_view' %}">
+          <i class="user icon"></i>
+          View Profile</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

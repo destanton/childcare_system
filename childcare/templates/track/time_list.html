@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-{% for time in child %}
-
-{{ time.check_out }}
-{% endfor %}
-
+<div class="ui container">
+  {% for time in child %}
+    {{ time.check_out }}
+    {% endfor %}
+</div>
 {% endblock %}

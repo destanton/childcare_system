@@ -1,33 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Child Detail</h1>
-{% if request.user.profile.is_parent %}
-  {% for child in request.user.profile.child_list %}<br>
-    {{child.id}}<br>
-    {{child.first_name}}<br>
-    {{child.last_name}}<br>
-    {{child.pin}}<br>
-    hours: {{child.total_time | floatformat:2}}
-      <hr>
-  {% endfor %}
-  {% for item in request.user.profile.time_list %}
-  <br>
-    Name: {{item.child}}<br>
-    Onsite: {{ item.onsite_rename }}<br>
-    Check In: {{item.check_in}}<br>
-    Check Out:  {{item.check_out}}<br>
-    Total Time Checked-In: {{item.get_time}}<br>
+<div class="ui container">
+  <h1>Child Detail</h1>
+  {% if request.user.profile.is_parent %}
+    {% for child in request.user.profile.child_list %}<br>
+      {{child.id}}<br>
+      {{child.first_name}}<br>
+      {{child.last_name}}<br>
+      {{child.pin}}<br>
+      hours: {{child.total_time | floatformat:2}}
+        <hr>
+    {% endfor %}
+    {% for item in request.user.profile.time_list %}
+    <br>
+      Name: {{item.child}}<br>
+      Onsite: {{ item.onsite_rename }}<br>
+      Check In: {{item.check_in}}<br>
+      Check Out:  {{item.check_out}}<br>
+      Total Time Checked-In: {{item.get_time}}<br>
+    {% endfor %}
+    {% endif %}
+  {% if request.user.profile.is_staff %}
+  <a href="{% url 'child_create_view' %}">Create Child</a>
+  {% for child in child %}<br>
+    {{ child.first_name }} <br>
+    {{ child.pin }}<br>
+    hours: {{ child.total_time | floatformat:2 }}<br>
   {% endfor %}
   {% endif %}
-{% if request.user.profile.is_staff %}
-<a href="{% url 'child_create_view' %}">Create Child</a>
-{% for child in child %}<br>
-  {{ child.first_name }} <br>
-  {{ child.pin }}<br>
-  hours: {{ child.total_time | floatformat:2 }}<br>
-{% endfor %}
-
-
-{% endif %}
+</div>
 {% endblock %}
