@@ -1,6 +1,7 @@
 from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from datetime import datetime
 
 ACCESS_LEVEL = [
     ("s", "staff"),
@@ -52,8 +53,16 @@ class Child(models.Model):
         return self.first_name
 
     @property
-    def onsite(self):
+    def all_checkin(self):
         return Time.objects.filter(child=self)
+
+    @property
+    def total_time(self):
+        total_time = self.all_checkin
+        new_time = sum(time.get_time.seconds for time in total_time)
+        # for time in total_time:
+        #     return time.get_time.seconds
+        return float(new_time / 3600)
 
 
 class Time(models.Model):
@@ -69,7 +78,7 @@ class Time(models.Model):
         ordering = ('-id',)
 
     @property
-    def rename(self):
+    def onsite_rename(self):
         if not self.on_premise == True:
             return str("Not In Facility")
         else:
