@@ -2,11 +2,26 @@
 
 {% block content %}
 <div class="ui container">
-  <form class="" action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p}}
-    <input type="submit" name="name" value="check-in/check-out">
-  </form>
+  <div class="ui two column centered grid">
+    <div class="column">
+      <div class="ui center aligned basic segment">
+        <form class="" action="" method="post">
+          {% csrf_token %}
+          {{form.as_p}}
+          <div class="ui horizontal divider"></div>
+          <input class=" ui teal icon button" type="submit" name="name" value="check-in/check-out">
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}
+{% for child in child %}
+{% endfor %}
+
+{% url 'checkin_create_view' child.id %}
+<div class="ui toggle checkbox">
+  <input type="checkbox" action= name="public">
+  <label>On Premise</label>
+</div>

@@ -16,6 +16,10 @@
         <a class="item" href="{% url 'logout' %}?next={% url 'index_view' %}">Logout</a>
       {% endif %}
       <a class="item" href="{% url 'index_view' %}">Home</a>
+      <a class="item" href="{% url 'user_create_view' %}">Create User</a>
+      {% if request.user.is_staff %}
+      <a class="item" href="{% url 'child_create_view' %}">Create Child<i class="user icon"></i></a>
+      {% endif %}
     </div>
 
     {% block content %}

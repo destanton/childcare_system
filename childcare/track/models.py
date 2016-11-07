@@ -40,7 +40,16 @@ class Profile(models.Model):
 
     @property
     def time_list(self):
-        return Time.objects.all()
+        if self.access_level == 'p':
+            child_list = self.child_list
+            for child in child_list:
+                return child.all_checkin
+
+    @property
+    def child_bill(self):
+        child_list = self.child_list
+        bill = round(sum(child.profile_bill for child in child_list), 2)
+        return str("{} {}").format('$', bill)
 
 
 class Child(models.Model):
@@ -63,6 +72,26 @@ class Child(models.Model):
         # for time in total_time:
         #     return time.get_time.seconds
         return float(new_time / 3600)
+
+    @property
+    def total_bill(self):
+        total_time = self.total_time
+        cost = 12.00
+        new_cost = round(float(total_time * cost), 2)
+        return str("{} {}").format('$', new_cost)
+
+    @property
+    def profile_bill(self):
+        total_time = self.total_time
+        cost = 12.00
+        new_cost = round(float(total_time * cost), 2)
+        return new_cost
+
+    @property
+    def is_onsite(self):
+        total_time = self.all_checkin
+        for time in total_time:
+            return time.onsite_rename
 
 
 class Time(models.Model):

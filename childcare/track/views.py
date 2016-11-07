@@ -66,6 +66,11 @@ class CheckinCreateView(CreateView):
     success_url = "/"
     fields = ("on_premise", )
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["child"] = Child.objects.all()
+        return context
+
     def form_valid(self, form):
         instance = form.save(commit=False)
         instance.child = Child.objects.get(id=self.kwargs['pk'])

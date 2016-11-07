@@ -2,32 +2,109 @@
 
 {% block content %}
 <div class="ui container">
+  <table class="ui red table">
   <h1>Child Detail</h1>
   {% if request.user.profile.is_parent %}
-    {% for child in request.user.profile.child_list %}<br>
-      {{child.id}}<br>
-      {{child.first_name}}<br>
-      {{child.last_name}}<br>
-      {{child.pin}}<br>
-      hours: {{child.total_time | floatformat:2}}
-        <hr>
+  <h2 class="ui right aligned header">Total Bill {{request.user.profile.child_bill}}</h2>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Pin</th>
+        <th>Hours</th>
+        <th>Billable Amount</th>
+      </tr></thead><tbody>
+        {% for child in request.user.profile.child_list %}
+      <tr>
+        <td>
+          {{child.id}}
+        </td>
+        <td>
+          {{child.first_name | title}}
+          {{child.last_name | title}}
+        </td>
+        <td>
+          {{child.pin}}
+        </td>
+        <td>
+          {{child.total_time | floatformat:2}}
+        </td>
+        <td>
+          {{child.total_bill}}
+        </td>
+      </tr>
+
     {% endfor %}
+
+  </tbody>
+    </table>
+    <hr>
+    <table class="ui red table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Onsite</th>
+        <th>Checked In</th>
+        <th>Checked Out</th>
+      </tr></thead><tbody>
     {% for item in request.user.profile.time_list %}
-    <br>
-      Name: {{item.child}}<br>
-      Onsite: {{ item.onsite_rename }}<br>
-      Check In: {{item.check_in}}<br>
-      Check Out:  {{item.check_out}}<br>
-      Total Time Checked-In: {{item.get_time}}<br>
+      <tr>
+        <td>
+          {{item.child | title}}
+        </td>
+        <td>
+          {{item.onsite_rename}}
+        </td>
+        <td>
+          {{item.check_in}}
+        </td>
+        <td>
+          {{item.check_out}}
+        </td>
+      </tr>
     {% endfor %}
+  </tbody>
+    </table>
     {% endif %}
+
   {% if request.user.profile.is_staff %}
-  <a href="{% url 'child_create_view' %}">Create Child</a>
-  {% for child in child %}<br>
-    {{ child.first_name }} <br>
-    {{ child.pin }}<br>
-    hours: {{ child.total_time | floatformat:2 }}<br>
+  <table class="ui red table">
+  <thead>
+    <tr>
+      <th>Parent</th>
+      <th>Name</th>
+      <th>Pin</th>
+      <th>Total Hours</th>
+      <th>Onsite</th>
+      <th>Total Bill</th>
+    </tr></thead><tbody>
+  {% for child in child %}
+  <tr>
+    <td>
+      {{ child.parent | title }}
+    </td>
+    <td>
+      {{ child.first_name | title }}&nbsp;{{ child.last_name | title }}
+    </td>
+    <td>
+      {{ child.pin }}
+    </td>
+    <td>
+      {{ child.total_time | floatformat:2 }}
+    </td>
+    <td>
+      {{ child.is_onsite }}
+    </td>
+    <td>
+      {{ child.total_bill }}
+    </td>
+  </tr>
   {% endfor %}
+</tbody>
+  </table>
   {% endif %}
+
 </div>
 {% endblock %}
+str("{} {}").format('$', new_cost)
+  Total Time Checked-In: {{item.get_time}}<br>
