@@ -41,74 +41,73 @@
 
   </tbody>
     </table>
-    <hr>
-    <table class="ui red table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Checked In</th>
-        <th>Checked Out</th>
-      </tr></thead><tbody>
-    {% for child in request.user.profile.child_list %}
-      {% for item in child.all_checkin %}
-      <tr>
-        <td>
-          {{item.child | title}}
-        </td>
-        <td>
-          {{item.check_in}}
-        </td>
-        <td>
-          {{item.check_out}}
-        </td>
-      </tr>
-    {% endfor %}
-    {% endfor %}
-  </tbody>
+      {% for child in request.user.profile.child_list %}
+      <table class="ui red table">
+        <hr>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Checked In</th>
+            <th>Checked Out</th>
+          </tr></thead><tbody>
+        {% for item in child.all_checkin %}
+        <tr>
+          <td>
+            {{item.child | title}}
+          </td>
+          <td>
+            {{item.check_in}}
+          </td>
+          <td>
+            {{item.check_out}}
+          </td>
+        </tr>
+          {% endfor %}
+            {% endfor %}
+      </tbody>
     </table>
-    
+
     {% endif %}
 
   {% if request.user.profile.is_staff %}
   <table class="ui red table">
-  <thead>
-    <tr>
-      <th>Parent</th>
-      <th>Name</th>
-      <th>Pin</th>
-      <th>Total Hours</th>
-      <th>Onsite</th>
-      <th>Total Bill</th>
-    </tr></thead><tbody>
-  {% for child in child %}
-  <tr>
-    <td>
-      {{ child.parent | title }}
-    </td>
-    <td>
-      {{ child.first_name | title }}&nbsp;{{ child.last_name | title }}
-    </td>
-    <td>
-      {{ child.pin }}
-    </td>
-    <td>
-      {{ child.total_time | floatformat:2 }}
-    </td>
-    <td>
-      {{ child.is_onsite }}
-    </td>
-    <td>
-      {{ child.total_bill }}
-    </td>
-  </tr>
-  {% endfor %}
-</tbody>
+    <thead>
+      <tr>
+        <th>Parent</th>
+        <th>Name</th>
+        <th>Pin</th>
+        <th>Total Hours</th>
+        <th>Onsite</th>
+        <th>Total Bill</th>
+      </tr></thead><tbody>
+        {% for child in child %}
+      <tr>
+        <td>
+          {{ child.parent | title }}
+        </td>
+        <td>
+          {{ child.first_name | title }}&nbsp;{{ child.last_name | title }}
+        </td>
+        <td>
+          {{ child.pin }}
+        </td>
+        <td>
+          {{ child.total_time | floatformat:2 }}
+        </td>
+        <td>
+          {{ child.is_onsite }}
+        </td>
+        <td>
+          {{ child.total_bill }}
+        </td>
+      </tr>
+        {% endfor %}
+    </tbody>
   </table>
   {% endif %}
-
 </div>
 {% else %}
-<h1>Please Login to View Profile</h1>
+  <h1>Please Login to View Profile</h1>
 {% endif %}
 {% endblock %}
 str("{} {}").format('$', new_cost)

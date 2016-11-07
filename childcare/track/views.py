@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from track.models import Profile, Child, Time
 from django.http import HttpResponseRedirect, HttpResponse
+from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse, reverse_lazy
 from random import choice
 from string import digits
@@ -39,13 +40,15 @@ class Start_View(TemplateView):
 
     def get(self, request):
         pin = request.GET["pin"]
-        child = Child.objects.get(pin=pin)
-        check = Time.objects.filter(child=child).first()
-        if check:
-            if not check.on_premise:
-                return HttpResponseRedirect(reverse("checkin_create_view", args=(child.id,)))
-            return HttpResponseRedirect(reverse("checkin_update_view", args=(check.id,)))
-        return HttpResponseRedirect(reverse("checkin_create_view", args=(child.id,)))
+        try:
+            child = Child.objects.get(pin=pin)
+            check = Time.objects.filter(child=child).first()
+            if check:
+                if not check.on_premise:
+                    return HttpResponseRedirect(reverse("checkin_create_view", args=(child.id,)))
+                return HttpResponseRedirect(reverse("checkin_update_view", args=(check.id,)))
+        except ObjectDoesNotExist:
+            return HttpResponseRedirect("/")
 
 
 class ChildCreateView(CreateView):
