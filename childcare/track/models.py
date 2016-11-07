@@ -42,8 +42,11 @@ class Profile(models.Model):
     def time_list(self):
         if self.access_level == 'p':
             child_list = self.child_list
+            new_list = []
             for child in child_list:
-                return child.all_checkin
+                new_list.append(child.all_checkin)
+            return new_list
+            # return new_list.child.all_checkin
 
     @property
     def child_bill(self):
@@ -100,11 +103,11 @@ class Time(models.Model):
     check_out = models.DateTimeField(auto_now=False, null=True)
     on_premise = models.BooleanField(default=False)
 
-    def __str__(self):
-        return self.user.username
+    # def __str__(self):
+    #     return self.id
 
     class Meta:
-        ordering = ('-id',)
+        ordering = ('-id', )
 
     @property
     def onsite_rename(self):

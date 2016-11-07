@@ -5,17 +5,20 @@
   <div class="ui two column centered grid">
     <div class="column">
       <div class="ui center aligned basic segment">
+        <div class="ui massive form">
+
+
         <form class="" action="" method="post">
           {% csrf_token %}
           {{form.as_p}}
           <div class="ui horizontal divider"></div>
-          <input class=" ui teal icon button" type="submit" name="name" value="check-in/check-out">
+          <input class=" ui teal massive icon button" type="submit" name="name" value="check-in/check-out">
         </form>
       </div>
     </div>
   </div>
+  </div>
 </div>
-
 {% endblock %}
 {% for child in child %}
 {% endfor %}

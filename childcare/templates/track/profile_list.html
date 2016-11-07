@@ -46,17 +46,14 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Onsite</th>
         <th>Checked In</th>
         <th>Checked Out</th>
       </tr></thead><tbody>
-    {% for item in request.user.profile.time_list %}
+    {% for child in request.user.profile.child_list %}
+      {% for item in child.all_checkin %}
       <tr>
         <td>
           {{item.child | title}}
-        </td>
-        <td>
-          {{item.onsite_rename}}
         </td>
         <td>
           {{item.check_in}}
@@ -66,8 +63,10 @@
         </td>
       </tr>
     {% endfor %}
+    {% endfor %}
   </tbody>
     </table>
+    
     {% endif %}
 
   {% if request.user.profile.is_staff %}
