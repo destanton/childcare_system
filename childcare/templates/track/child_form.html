@@ -2,11 +2,13 @@
 
 {% block content %}
 <div class="ui container">
-  <form class="" action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" name="" value="Create">
-  </form>
+  <div class="ui padded segment">
+    <form class="" action="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" name="" value="Create">
+    </form>
+  </div>
 </div>
 
 {% endblock %}

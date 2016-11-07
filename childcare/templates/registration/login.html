@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="ui container">
+  <div class="ui padded segment">
   <form class="" action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" name="" value="Login">
+    <input class="ui blue button" type="submit" name="" value="Login">
   </form>
-
+</div>
+</div>
 {% endblock %}

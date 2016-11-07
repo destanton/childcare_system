@@ -10,7 +10,7 @@
         <div class="ui form">
           <form class="" action="{% url 'start_view' %}" method="get">
           {% csrf_token %}
-          <input type="text" name="pin" placeholder="Enter Child ID">
+          <input type="text" name="pin" placeholder="Enter Child ID" autocomplete="off">
           <input class="fluid ui blue ui toggle button" type="submit" value="Find Child">
           </form>
         </div>

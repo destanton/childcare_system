@@ -3,6 +3,7 @@
 {% block content %}
 <div class="ui container">
   <table class="ui red table">
+    {% if request.user.is_authenticated %}
   <h1>Child Detail</h1>
   {% if request.user.profile.is_parent %}
   <h2 class="ui right aligned header">Total Bill {{request.user.profile.child_bill}}</h2>
@@ -105,6 +106,9 @@
   {% endif %}
 
 </div>
+{% else %}
+<h1>Please Login to View Profile</h1>
+{% endif %}
 {% endblock %}
 str("{} {}").format('$', new_cost)
   Total Time Checked-In: {{item.get_time}}<br>
