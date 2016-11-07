@@ -4,7 +4,9 @@
 <div class="ui container">
   <table class="ui red table">
     {% if request.user.is_authenticated %}
-  <h1>Child Detail</h1>
+    <h2 class="ui center aligned icon header">
+  <i class="circular users icon"></i>
+    Child Detail</h2>
   {% if request.user.profile.is_parent %}
   <h2 class="ui right aligned header">Total Bill {{request.user.profile.child_bill}}</h2>
     <thead>
